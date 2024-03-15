@@ -1,76 +1,81 @@
 
-
-
-
-
-
 function getComputerChoice(){
+    let indexChoice = Math.floor(Math.random() * choice.length);
+    return choice[indexChoice];  
+ } 
+      
 
-    let choiceValue = ['rock','paper','scissor'];
-    let indexChoice = Math.floor(Math.random() * choiceValue.length);
-    let computerChoice = choiceValue[indexChoice];
-    
-    return computerChoice;
+function playRound(playerSelection,computerSelection){
+
+        computerSelection = getComputerChoice();
+        if(playerSelection === 'rock' && computerSelection === 'paper'||
+        playerSelection === 'paper'&& computerSelection === 'scissor' ||
+        playerSelection === 'scissor' && computerSelection === 'rock'){
+
+        computerScore++;
+        showPlayerScore.innerHTML =`${playerScore}`;
+        showComputerScore.innerHTML = `${computerScore}`;
+
+        }else if(playerSelection === 'rock' && computerSelection === 'scissor'||
+                playerSelection === 'paper'&& computerSelection === 'rock' ||
+                playerSelection === 'scissor' && computerSelection === 'paper'){
+
+        playerScore++;
+        showPlayerScore.innerHTML =`${playerScore}`;
+        showComputerScore.innerHTML = `${computerScore}`;                        
+        }else{
+        showPlayerScore.innerHTML =`${playerScore}`;
+        showComputerScore.innerHTML = `${computerScore}`;
+        }
+
+        console.log(playerSelection);
+        console.log(computerSelection);
+        console.log(playerScore);
+        console.log(computerScore);
+
 
 }
 
-
-
 function playGame(){
+    
+ for (let i = 0; i <buttons.length; i++) {
+         buttons[i].addEventListener('click', () => {  
+        let choice = i;  
 
-   
-
-        function playRound(playerSelection,computerSelection){
-  
-            playerSelection = prompt('What is your Choice?');
-            let playerChoice = playerSelection.toLowerCase();
-
-            if(playerChoice === 'rock' && computerSelection === 'paper'||
-            playerChoice === 'paper'&& computerSelection === 'scissor' ||
-            playerChoice === 'scissor' && computerSelection === 'rock'){
-
-                computerScore++;
-
-                console.log(`you lose! ${computerSelection} defeat ${playerChoice}`)
-
-            }else if(playerChoice === 'rock' && computerSelection === 'scissor'||
-                    playerChoice === 'paper'&& computerSelection === 'rock' ||
-                    playerChoice === 'scissor' && computerSelection === 'paper'){
-
-                        playerScore++;
-
-                        console.log(`you win! ${playerChoice} defeat ${computerSelection}`);
-                    
-            }else{
-                console.log('tied!');
-            }
-            
-        }
-
-            for(let i = 0; i < 5; i++){
-
-                playRound(playerSelection,computerSelection);
-            }
-
-            if (playerScore > computerScore) {
-
-                alert('You Win THe Game!');
-            }else if(playerScore < computerScore){
-
-                alert('You Lose The Game!');
-            }else{
-                alert('The Game Is Tied!');
-            }
-
-            console.log(playerScore);
-            console.log(computerScore);
+        if (choice === 0 ) {
+            playerSelection = 'rock';
+        }else if (choice === 1) {
+            playerSelection = 'paper'
+        }else if (choice === 2) {
+            playerSelection = 'scissor'
+        } 
+               
+        playRound(playerSelection,computerSelection);
+    });
+};  
   }
 
 let playerScore = 0;
 let computerScore = 0;
-let playerSelection = '';
-let computerSelection = getComputerChoice();
+let playerSelection;
+let computerSelection;
 
-console.log(playGame());
+let initialRound = 0;
+let totalRound = 5
+
+let choice = ['rock','paper','scissor'];
+
+const gameResult = document.getElementById('game_result');
+const showPlayerScore = document.getElementById('player_score'); 
+const showComputerScore = document.getElementById('computer_score');
+let buttons = document.querySelectorAll('#btn'); 
+
+
+    playGame();
+    
+
+
+  
+
 
 
